@@ -210,7 +210,7 @@
             const container = document.getElementById('imageContainer');
             images.forEach(image => {
                 const img = document.createElement('img');
-                img.src = `./images/${image}`;
+                img.src = image;
                 img.alt = 'Letter image';
                 img.className = 'letter-image';
                 img.onerror = function() {
