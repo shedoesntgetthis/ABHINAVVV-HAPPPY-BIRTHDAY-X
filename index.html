@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💌 Birthday Surprise</title>
+<title>💌 Birthday Letter Surprise</title>
 <style>
 /* ---------- Reset & Base ---------- */
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -16,92 +16,79 @@ body {
 
 /* ---------- Container ---------- */
 .container {
-  background:#fff; border-radius:15px; padding:40px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.3); max-width:500px; width:100%; text-align:center;
+  max-width:550px; width:100%; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:20px;
 }
 
-/* ---------- Typography ---------- */
-h1 { color:#333; margin-bottom:10px; font-size:2em; }
-p { color:#666; margin-bottom:20px; line-height:1.5; }
+/* ---------- Letter Envelope ---------- */
+.envelope {
+  background:#fdf7ec; border:1px solid #ccc; border-radius:8px; padding:30px;
+  position:relative; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  transform-style: preserve-3d; transform-origin: top center;
+  transition: transform 1s ease;
+}
+.envelope.open { transform: rotateX(-180deg); }
 
 /* ---------- Puzzle Section ---------- */
-.lock-icon { font-size:3em; margin:20px 0; }
-.puzzle-section { margin:30px 0; }
-.puzzle-question {
-  background:#fff5f7; padding:20px; border-radius:10px;
-  margin-bottom:20px; font-size:1.1em; color:#555; line-height:1.6;
-}
-.hint { color:#999; font-size:0.9em; font-style:italic; margin-top:10px; }
-input {
-  width:100%; padding:12px; margin:15px 0; border:2px solid #ff6b9d;
-  border-radius:8px; font-size:1em; transition:border-color 0.3s;
-}
-input:focus { outline:none; border-color:#c06c84; }
-button {
-  width:100%; padding:12px; background:linear-gradient(135deg,#ff6b9d 0%,#c06c84 100%);
-  color:white; border:none; border-radius:8px; font-size:1.1em; cursor:pointer;
-  transition:transform 0.2s,box-shadow 0.2s;
-}
-button:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,107,157,0.4); }
+.lock-icon { font-size:3em; margin-bottom:10px; }
+h1 { color:#333; font-size:1.8em; margin-bottom:10px; }
+p { color:#444; line-height:1.5; margin-bottom:20px; }
+.puzzle-question { background:#f7f7f7; padding:15px; border-radius:6px; font-size:1.05em; color:#333; }
+.hint { font-size:0.85em; color:#888; margin-top:8px; font-style:italic; }
+input { width:100%; padding:10px; margin:12px 0; border:2px solid #888; border-radius:6px; font-size:1em; transition:border-color 0.3s; }
+input:focus { outline:none; border-color:#555; }
+button { width:100%; padding:10px; background:#555; color:#fff; border:none; border-radius:6px; font-size:1em; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
+button:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.2); }
 button:active { transform:translateY(0); }
-.error { color:#e74c3c; margin-top:10px; display:none; }
+.error { color:#e74c3c; margin-top:8px; display:none; }
 
 /* ---------- Letter Reveal ---------- */
-#letter { display:none; }
-.congratulations { font-size:2em; margin:20px 0; animation:bounce 0.6s; }
-#imageContainer { margin-top:30px; }
-
-.letter-image {
-  max-width:100%; height:auto; margin:15px 0; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.1);
-  opacity:0; transform:scale(0.6) rotate(-8deg); animation:polaroidDrop 1.2s ease forwards;
-  transition:transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s;
-}
+#letter { display:none; background:#fdf7ec; padding:20px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+.congratulations { font-size:2em; margin-bottom:15px; }
+#imageContainer { margin-top:20px; }
+.letter-image { max-width:100%; margin:10px 0; border-radius:6px; box-shadow:0 4px 8px rgba(0,0,0,0.1); opacity:0; transform:scale(0.6) rotate(-8deg); animation:polaroidDrop 1.2s ease forwards; transition: transform 0.4s ease, box-shadow 0.4s ease; }
 .letter-image:nth-child(odd){ transform:scale(0.6) rotate(6deg); }
-.letter-image:hover{ transform:scale(1.05) rotate(0deg); box-shadow:0 25px 50px rgba(0,0,0,0.35); filter: drop-shadow(0 0 10px #ff6b9d); }
+.letter-image:hover{ transform:scale(1.05) rotate(0deg); box-shadow:0 20px 40px rgba(0,0,0,0.2); filter: drop-shadow(0 0 6px #fff); }
 .letter-image:nth-child(1){ animation-delay:0.3s; }
 .letter-image:nth-child(2){ animation-delay:1s; }
 .letter-image:nth-child(3){ animation-delay:1.7s; }
 
 /* ---------- Animations ---------- */
-@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-@keyframes polaroidDrop {0%{opacity:0;transform:scale(0.5) rotate(-15deg) translateY(-60px);}
+@keyframes polaroidDrop {0%{opacity:0;transform:scale(0.5) rotate(-15deg) translateY(-40px);}
 60%{opacity:1;transform:scale(1.05) rotate(3deg) translateY(10px);}
 100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}}
-@keyframes floatUp {0%{transform:translateY(0) rotate(0deg); opacity:1;}100%{transform:translateY(-120vh) rotate(360deg); opacity:0;}}
+@keyframes sparkleFloat {0%{transform:translateY(0) scale(0.6); opacity:0.8;}
+50%{opacity:1;}
+100%{transform:translateY(-100vh) scale(1); opacity:0;}}
 
-/* ---------- Hearts ---------- */
-.heart { position:fixed; pointer-events:none; animation:floatUp 4s linear forwards; }
-.confetti { position:fixed; width:8px; height:8px; pointer-events:none; background: #ff6b9d; border-radius:50%; opacity:0.9; animation:confettiFall 3s ease-out forwards; }
-
-@keyframes confettiFall {
-  0% { transform: translateY(0) rotate(0deg); opacity:1; }
-  100% { transform: translateY(120vh) rotate(720deg); opacity:0; }
-}
+/* ---------- Sparkles ---------- */
+.sparkle { position:fixed; width:3px; height:3px; background:white; border-radius:50%; pointer-events:none; opacity:0.8; animation:sparkleFloat 4s linear forwards; }
 </style>
 </head>
 <body>
 <div class="container">
-  <!-- Puzzle -->
-  <div id="puzzle">
-    <div class="lock-icon">💌</div>
-    <h1>Hope it makes you giggle x</h1>
-    <p>Sincere apologies that this can't compare to the joy of eating too many fresh chole bhature or a chilly kingfisher! 🍻</p>
 
-    <div class="puzzle-section">
-      <div class="puzzle-question">
-        <strong>Do you remember what I was wearing when we first met?</strong>
-        <div class="hint"> 😏</div>
+  <div class="envelope" id="envelope">
+    <div id="puzzle">
+      <div class="lock-icon">💌</div>
+      <h1>Hope it makes you giggle x</h1>
+      <p>Sincere apologies that this can't compare to the joy of eating too many fresh chole bhature or a chilly kingfisher! 🍻</p>
+
+      <div class="puzzle-section">
+        <div class="puzzle-question">
+          <strong>Do you remember what I was wearing when we first met?</strong>
+          <div class="hint"> 😏</div>
+        </div>
+
+        <input type="text" id="answerInput" placeholder="Enter your answer" autocomplete="off">
+        <button onclick="checkAnswer()"> Unlock 💌</button>
+        <div class="error" id="error">❌ Nope! Think again... 😉</div>
       </div>
-
-      <input type="text" id="answerInput" placeholder="Enter your answer" autocomplete="off">
-      <button onclick="checkAnswer()"> 💕</button>
-      <div class="error" id="error">❌ Nope! Think again... 😉</div>
     </div>
   </div>
 
-  <!-- Letter -->
   <div id="letter">
-    <div class="congratulations">💕</div>
+    <div class="congratulations">✨</div>
     <h2>Can't believe you got it!</h2>
     <p>If you can't read this, you know obviously where to find me 😘</p>
     <div id="imageContainer"></div>
@@ -117,11 +104,13 @@ function checkAnswer(){
   const isCorrect = correctAnswers.some(ans=>input.includes(ans));
 
   if(isCorrect){
-    document.getElementById('puzzle').style.display='none';
-    document.getElementById('letter').style.display='block';
-    loadImages();
-    createHearts();
-    createConfetti();
+    document.getElementById('envelope').classList.add('open');
+    setTimeout(()=>{
+      document.getElementById('puzzle').style.display='none';
+      document.getElementById('letter').style.display='block';
+      loadImages();
+      createSparkles();
+    },1000); // wait for fold animation
   } else {
     const errorMsg=document.getElementById('error');
     errorMsg.style.display='block';
@@ -146,33 +135,20 @@ document.getElementById('answerInput').addEventListener('keypress',e=>{
   if(e.key==='Enter') checkAnswer();
 });
 
-// Floating hearts
-function createHearts(){
-  for(let i=0;i<20;i++){
-    const heart=document.createElement('div');
-    heart.className='heart'; heart.innerHTML='💕';
-    heart.style.left=Math.random()*100+'vw';
-    heart.style.fontSize=(15+Math.random()*20)+'px';
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),4000);
-  }
-}
-
-// Falling confetti
-function createConfetti(){
-  const colors=['#ff6b9d','#c06c84','#ffb347','#ffd700','#1E90FF'];
-  for(let i=0;i<40;i++){
-    const confetti=document.createElement('div');
-    confetti.className='confetti';
-    confetti.style.left=Math.random()*100+'vw';
-    confetti.style.background=colors[Math.floor(Math.random()*colors.length)];
-    confetti.style.width=5+Math.random()*6+'px';
-    confetti.style.height=5+Math.random()*6+'px';
-    document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),3000);
+// Sparkles
+function createSparkles(){
+  for(let i=0;i<30;i++){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    s.style.left=Math.random()*100+'vw';
+    s.style.width=2+Math.random()*3+'px';
+    s.style.height=s.style.width;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),4000);
   }
 }
 </script>
 </body>
 </html>
+
 
