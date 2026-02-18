@@ -9,44 +9,72 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family:'serif',sans-serif;
-  background: linear-gradient(135deg,#FFD700 0%,#1E90FF 100%);
-  min-height:100vh; display:flex; justify-content:center; align-items:center;
-  padding:20px; overflow-x:hidden;
+  background:#fdf6e3; /* soft cream paper */
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  overflow-x:hidden;
 }
 
 /* ---------- Container ---------- */
 .container {
-  max-width:550px; width:100%; text-align:center;
-  display:flex; flex-direction:column; align-items:center; gap:20px;
+  max-width:550px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
 }
 
 /* ---------- Letter Envelope ---------- */
 .envelope {
-  background:#fdf7ec; border:1px solid #ccc; border-radius:8px; padding:30px;
-  position:relative; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.2);
-  transform-style: preserve-3d; transform-origin: top center;
+  background:#faf0e6; /* slightly darker cream */
+  border-radius:8px;
+  padding:30px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  transform-style: preserve-3d;
+  transform-origin: top center;
   transition: transform 1s ease;
 }
 .envelope.open { transform: rotateX(-180deg); }
 
 /* ---------- Puzzle Section ---------- */
 .lock-icon { font-size:3em; margin-bottom:10px; }
-h1 { color:#333; font-size:1.8em; margin-bottom:10px; }
-p { color:#444; line-height:1.5; margin-bottom:20px; }
-.puzzle-question { background:#f7f7f7; padding:15px; border-radius:6px; font-size:1.05em; color:#333; }
-.hint { font-size:0.85em; color:#888; margin-top:8px; font-style:italic; }
-input { width:100%; padding:10px; margin:12px 0; border:2px solid #888; border-radius:6px; font-size:1em; transition:border-color 0.3s; }
+h1 { color:#333; font-size:1.8em; margin-bottom:10px; text-align:center; }
+p { color:#444; line-height:1.5; margin-bottom:20px; text-align:center; }
+.puzzle-question { background:#f5f0e0; padding:15px; border-radius:6px; font-size:1.05em; color:#333; margin-bottom:12px; }
+.hint { font-size:0.85em; color:#888; margin-top:8px; font-style:italic; display:block; text-align:center; }
+input {
+  width:100%;
+  padding:10px;
+  margin:12px 0;
+  border:1px solid #aaa;
+  border-radius:6px;
+  font-size:1em;
+  transition:border-color 0.3s;
+  text-align:center;
+}
 input:focus { outline:none; border-color:#555; }
-button { width:100%; padding:10px; background:#555; color:#fff; border:none; border-radius:6px; font-size:1em; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
-button:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.2); }
-button:active { transform:translateY(0); }
-.error { color:#e74c3c; margin-top:8px; display:none; }
+.error { color:#e74c3c; margin-top:8px; display:none; text-align:center; }
 
 /* ---------- Letter Reveal ---------- */
-#letter { display:none; background:#fdf7ec; padding:20px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+#letter { display:none; background:#faf0e6; padding:20px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.15); text-align:center; }
 .congratulations { font-size:2em; margin-bottom:15px; }
 #imageContainer { margin-top:20px; }
-.letter-image { max-width:100%; margin:10px 0; border-radius:6px; box-shadow:0 4px 8px rgba(0,0,0,0.1); opacity:0; transform:scale(0.6) rotate(-8deg); animation:polaroidDrop 1.2s ease forwards; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+.letter-image {
+  max-width:100%;
+  margin:10px 0;
+  border-radius:6px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.1);
+  opacity:0;
+  transform:scale(0.6) rotate(-8deg);
+  animation:polaroidDrop 1.2s ease forwards;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
 .letter-image:nth-child(odd){ transform:scale(0.6) rotate(6deg); }
 .letter-image:hover{ transform:scale(1.05) rotate(0deg); box-shadow:0 20px 40px rgba(0,0,0,0.2); filter: drop-shadow(0 0 6px #fff); }
 .letter-image:nth-child(1){ animation-delay:0.3s; }
@@ -54,15 +82,28 @@ button:active { transform:translateY(0); }
 .letter-image:nth-child(3){ animation-delay:1.7s; }
 
 /* ---------- Animations ---------- */
-@keyframes polaroidDrop {0%{opacity:0;transform:scale(0.5) rotate(-15deg) translateY(-40px);}
-60%{opacity:1;transform:scale(1.05) rotate(3deg) translateY(10px);}
-100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}}
-@keyframes sparkleFloat {0%{transform:translateY(0) scale(0.6); opacity:0.8;}
-50%{opacity:1;}
-100%{transform:translateY(-100vh) scale(1); opacity:0;}}
+@keyframes polaroidDrop {
+  0%{opacity:0;transform:scale(0.5) rotate(-15deg) translateY(-40px);}
+  60%{opacity:1;transform:scale(1.05) rotate(3deg) translateY(10px);}
+  100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}
+}
+@keyframes sparkleFloat {
+  0%{transform:translateY(0) scale(0.6); opacity:0.8;}
+  50%{opacity:1;}
+  100%{transform:translateY(-100vh) scale(1); opacity:0;}
+}
 
 /* ---------- Sparkles ---------- */
-.sparkle { position:fixed; width:3px; height:3px; background:white; border-radius:50%; pointer-events:none; opacity:0.8; animation:sparkleFloat 4s linear forwards; }
+.sparkle {
+  position:fixed;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0.8;
+  animation:sparkleFloat 4s linear forwards;
+}
 </style>
 </head>
 <body>
@@ -77,11 +118,10 @@ button:active { transform:translateY(0); }
       <div class="puzzle-section">
         <div class="puzzle-question">
           <strong>Do you remember what I was wearing when we first met?</strong>
-          <div class="hint"> 😏</div>
+          <span class="hint"> 😏</span>
         </div>
 
-        <input type="text" id="answerInput" placeholder="Enter your answer" autocomplete="off">
-        <button onclick="checkAnswer()"> Unlock 💌</button>
+        <input type="text" id="answerInput" placeholder="Type your answer here" autocomplete="off">
         <div class="error" id="error">❌ Nope! Think again... 😉</div>
       </div>
     </div>
@@ -93,6 +133,7 @@ button:active { transform:translateY(0); }
     <p>If you can't read this, you know obviously where to find me 😘</p>
     <div id="imageContainer"></div>
   </div>
+
 </div>
 
 <script>
@@ -150,5 +191,3 @@ function createSparkles(){
 </script>
 </body>
 </html>
-
-
