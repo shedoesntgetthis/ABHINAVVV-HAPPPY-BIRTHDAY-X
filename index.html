@@ -1,285 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💌 </title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'serif', sans-serif;
-            background: linear-gradient(135deg, #FFD700 0%, #1E90FF 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 2em;
-        }
-        
-        .lock-icon {
-            font-size: 3em;
-            margin: 20px 0;
-        }
-        
-        .puzzle-section {
-            margin: 30px 0;
-        }
-        
-        .puzzle-question {
-            background: #fff5f7;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            color: #555;
-            line-height: 1.6;
-        }
-        
-        .hint {
-            color: #999;
-            font-size: 0.9em;
-            font-style: italic;
-            margin-top: 10px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 2px solid #ff6b9d;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #c06c84;
-        }
-        
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        .error {
-            color: #e74c3c;
-            margin-top: 10px;
-            display: none;
-        }
-        
-        .success {
-            display: none;
-        }
-        
-        .letter-container {
-           .letter-image {
-    max-width: 100%;
-    height: auto;
-    margin: 40px auto;
-    padding: 15px 15px 60px 15px; /* polaroid bottom space */
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    
-    opacity: 0;
-    transform: scale(0.6) rotate(-8deg);
-    animation: polaroidDrop 1.2s ease forwards;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Birthday Surprise</title>
+<style>
+/* ---------- Reset & Base ---------- */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'serif',sans-serif;
+  background: linear-gradient(135deg,#FFD700 0%,#1E90FF 100%);
+  min-height:100vh; display:flex; justify-content:center; align-items:center;
+  padding:20px; overflow-x:hidden;
 }
 
-/* Make them slightly different angles */
-.letter-image:nth-child(odd) {
-    transform: scale(0.6) rotate(6deg);
+/* ---------- Container ---------- */
+.container {
+  background:#fff; border-radius:15px; padding:40px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3); max-width:500px; width:100%; text-align:center;
 }
 
-/* Cute lift on hover */
-.letter-image:hover {
-    transform: scale(1.05) rotate(0deg);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+/* ---------- Typography ---------- */
+h1 { color:#333; margin-bottom:10px; font-size:2em; }
+p { color:#666; margin-bottom:20px; line-height:1.5; }
+
+/* ---------- Puzzle Section ---------- */
+.lock-icon { font-size:3em; margin:20px 0; }
+.puzzle-section { margin:30px 0; }
+.puzzle-question {
+  background:#fff5f7; padding:20px; border-radius:10px;
+  margin-bottom:20px; font-size:1.1em; color:#555; line-height:1.6;
 }
-
-        }
-        
-        .letter-image {
-            max-width: 100%;
-            height: auto;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .congratulations {
-            font-size: 2em;
-            margin: 20px 0;
-            animation: bounce 0.6s;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes polaroidDrop {
-    0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(-15deg) translateY(-60px);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.05) rotate(3deg) translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg) translateY(0);
-    }
+.hint { color:#999; font-size:0.9em; font-style:italic; margin-top:10px; }
+input {
+  width:100%; padding:12px; margin:15px 0; border:2px solid #ff6b9d;
+  border-radius:8px; font-size:1em; transition:border-color 0.3s;
 }
+input:focus { outline:none; border-color:#c06c84; }
+button {
+  width:100%; padding:12px; background:linear-gradient(135deg,#ff6b9d 0%,#c06c84 100%);
+  color:white; border:none; border-radius:8px; font-size:1.1em; cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+button:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(255,107,157,0.4); }
+button:active { transform:translateY(0); }
+.error { color:#e74c3c; margin-top:10px; display:none; }
 
-.letter-image:nth-child(1) { animation-delay: 0.3s; }
-.letter-image:nth-child(2) { animation-delay: 1s; }
-.letter-image:nth-child(3) { animation-delay: 1.7s; }
+/* ---------- Letter Reveal ---------- */
+#letter { display:none; }
+.congratulations { font-size:2em; margin:20px 0; animation:bounce 0.6s; }
+#imageContainer { margin-top:30px; }
 
-    </style>
+.letter-image {
+  max-width:100%; height:auto; margin:15px 0; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.1);
+  opacity:0; transform:scale(0.6) rotate(-8deg); animation:polaroidDrop 1.2s ease forwards;
+  transition:transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s;
+}
+.letter-image:nth-child(odd){ transform:scale(0.6) rotate(6deg); }
+.letter-image:hover{ transform:scale(1.05) rotate(0deg); box-shadow:0 25px 50px rgba(0,0,0,0.35); filter: drop-shadow(0 0 10px #ff6b9d); }
+.letter-image:nth-child(1){ animation-delay:0.3s; }
+.letter-image:nth-child(2){ animation-delay:1s; }
+.letter-image:nth-child(3){ animation-delay:1.7s; }
+
+/* ---------- Animations ---------- */
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes polaroidDrop {0%{opacity:0;transform:scale(0.5) rotate(-15deg) translateY(-60px);}
+60%{opacity:1;transform:scale(1.05) rotate(3deg) translateY(10px);}
+100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}}
+@keyframes floatUp {0%{transform:translateY(0) rotate(0deg); opacity:1;}100%{transform:translateY(-120vh) rotate(360deg); opacity:0;}}
+
+/* ---------- Hearts ---------- */
+.heart { position:fixed; pointer-events:none; animation:floatUp 4s linear forwards; }
+.confetti { position:fixed; width:8px; height:8px; pointer-events:none; background: #ff6b9d; border-radius:50%; opacity:0.9; animation:confettiFall 3s ease-out forwards; }
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(120vh) rotate(720deg); opacity:0; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div id="puzzle">
-            <div class="lock-icon">💌</div>
-            <h1>Hope it makes you giggle x </h1>
-            <p style="color: #666; margin-bottom: 20px;">Sincere apologies that this can't compare to the joy of eating too many fresh chole bhature or a chilly kingfisher! 🍻</p>
-            
-            <div class="puzzle-section">
-                <div class="puzzle-question">
-                    <strong>Do you remember what I was wearing when we first met?</strong>
-                    <div class="hint"> 😏</div>
-                </div>
-                
-                <input 
-                    type="text" 
-                    id="answerInput" 
-                    placeholder="Enter your answer"
-                    autocomplete="off"
-                >
-                
-                <button onclick="checkAnswer()"> 💕</button>
-                
-                <div class="error" id="error">❌ Nope! Think again... 😉</div>
-            </div>
-        </div>
-        
-        <div id="letter" class="letter-container">
-            <div class="congratulations">💕</div>
-            <h2>Can't believe you got it!</h2>
-            <p style="color: #666; margin-bottom: 30px; font-size: 1.05em;">If you can't read this, you know obviously where to find me 😘</p>
-            
-            <div id="imageContainer"></div>
-        </div>
-    </div>
-    
-    <script>
-        // The answer! Accept both "white tshirt" and "white t-shirt"
-        const correctAnswers = ["white tshirt", "white t-shirt", "tshirt", "t-shirt"];
-        
-        function checkAnswer() {
-            const input = document.getElementById('answerInput').value.trim();
-            const errorMsg = document.getElementById('error');
-            
-            // Check if answer is correct (case-insensitive, removes extra spaces)
-            const normalizedInput = input.toLowerCase().replace(/\s+/g, ' ');
-            const isCorrect = correctAnswers.some(answer => 
-                normalizedInput.includes(answer)
-            );
-            
-            if (isCorrect) {
-                // Show letter
-                document.getElementById('puzzle').style.display = 'none';
-                document.getElementById('letter').style.display = 'block';
-                loadImages();
-            } else {
-                errorMsg.style.display = 'block';
-                document.getElementById('answerInput').value = '';
-                document.getElementById('answerInput').focus();
-            }
-        }
-        
-        function loadImages() {
-            // Add your image filenames here
-            const images = [
-                'letter-1.jpg',
-                'letter-2.jpg',
-                'letter-3.jpg'
-            ];
-            
-            const container = document.getElementById('imageContainer');
-            images.forEach(image => {
-                const img = document.createElement('img');
-                img.src = image;
-                img.alt = 'letter-image';
-                img.className = 'letter-image';
-                img.onerror = function() {
-                    this.style.display = 'none';
-                };
-                container.appendChild(img);
-            });
-        }
-        
-        // Allow Enter key to submit
-        document.getElementById('answerInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') checkAnswer();
-        });
-        function createHearts() {
-    for (let i = 0; i < 20; i++) {
-        let heart = document.createElement("div");
-        heart.innerHTML = "💕";
-        heart.style.position = "fixed";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "100vh";
-        heart.style.fontSize = Math.random() * 20 + 15 + "px";
-        heart.style.animation = "floatUp 4s linear forwards";
-        document.body.appendChild(heart);
+<div class="container">
+  <!-- Puzzle -->
+  <div id="puzzle">
+    <div class="lock-icon">💌</div>
+    <h1>Hope it makes you giggle x</h1>
+    <p>Sincere apologies that this can't compare to the joy of eating too many fresh chole bhature or a chilly kingfisher! 🍻</p>
 
-        setTimeout(() => {
-            heart.remove();
-        }, 4000);
-    }
+    <div class="puzzle-section">
+      <div class="puzzle-question">
+        <strong>Do you remember what I was wearing when we first met?</strong>
+        <div class="hint"> 😏</div>
+      </div>
+
+      <input type="text" id="answerInput" placeholder="Enter your answer" autocomplete="off">
+      <button onclick="checkAnswer()"> 💕</button>
+      <div class="error" id="error">❌ Nope! Think again... 😉</div>
+    </div>
+  </div>
+
+  <!-- Letter -->
+  <div id="letter">
+    <div class="congratulations">💕</div>
+    <h2>Can't believe you got it!</h2>
+    <p>If you can't read this, you know obviously where to find me 😘</p>
+    <div id="imageContainer"></div>
+  </div>
+</div>
+
+<script>
+// Accepted answers
+const correctAnswers = ["white tshirt","white t-shirt","tshirt","t-shirt"];
+
+function checkAnswer(){
+  const input = document.getElementById('answerInput').value.trim().toLowerCase().replace(/\s+/g,' ');
+  const isCorrect = correctAnswers.some(ans=>input.includes(ans));
+
+  if(isCorrect){
+    document.getElementById('puzzle').style.display='none';
+    document.getElementById('letter').style.display='block';
+    loadImages();
+    createHearts();
+    createConfetti();
+  } else {
+    const errorMsg=document.getElementById('error');
+    errorMsg.style.display='block';
+    document.getElementById('answerInput').value='';
+    document.getElementById('answerInput').focus();
+  }
 }
 
-    </script>
+function loadImages(){
+  const images=['letter-1.jpg','letter-2.jpg','letter-3.jpg'];
+  const container=document.getElementById('imageContainer');
+  container.innerHTML='';
+  images.forEach(src=>{
+    const img=document.createElement('img');
+    img.src=src; img.alt='letter-image'; img.className='letter-image';
+    img.onerror=()=>img.style.display='none';
+    container.appendChild(img);
+  });
+}
+
+document.getElementById('answerInput').addEventListener('keypress',e=>{
+  if(e.key==='Enter') checkAnswer();
+});
+
+// Floating hearts
+function createHearts(){
+  for(let i=0;i<20;i++){
+    const heart=document.createElement('div');
+    heart.className='heart'; heart.innerHTML='💕';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(15+Math.random()*20)+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),4000);
+  }
+}
+
+// Falling confetti
+function createConfetti(){
+  const colors=['#ff6b9d','#c06c84','#ffb347','#ffd700','#1E90FF'];
+  for(let i=0;i<40;i++){
+    const confetti=document.createElement('div');
+    confetti.className='confetti';
+    confetti.style.left=Math.random()*100+'vw';
+    confetti.style.background=colors[Math.floor(Math.random()*colors.length)];
+    confetti.style.width=5+Math.random()*6+'px';
+    confetti.style.height=5+Math.random()*6+'px';
+    document.body.appendChild(confetti);
+    setTimeout(()=>confetti.remove(),3000);
+  }
+}
+</script>
 </body>
 </html>
+
